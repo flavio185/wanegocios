@@ -1,0 +1,25 @@
+{% extends "notas/base.html" %}
+
+{% block nav-notafilterform %}<a class="active" href="{% url 'notas:nota_filter_form' %}">Filtrar</a>{% endblock %}
+
+
+{% block content %}
+<div class="col-md-12">
+        <p></p>
+	<h1>Filtrar Notas</h1>
+	<form action="{% url 'notas:nota_filter' %}" method="get" >
+		{% csrf_token %}
+		{% if form.non_field_errors %}
+			<div class="non-field-errors">
+				{% for error in form.non_field_errors %}
+					<span>{{ error }}</span>
+				{% endfor %}
+			</div>
+		{% endif %}
+                <input type="date" name="data_inicio">   
+                <input type="date" name="data_fim">   
+		<input type="submit" value="Filtrar">
+	</form>
+</div>
+{% endblock %}
+

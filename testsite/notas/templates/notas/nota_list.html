@@ -1,0 +1,42 @@
+{% extends 'notas/base.html' %}
+
+{% block nav-notalist %}<a  class="active" href="{% url 'notas:nota_list' %}">Home</a>{% endblock %}
+
+
+{% block content %}
+<p>{{ query }}</p>
+<div class="post">
+	<table>
+		<tr>
+			<th>Número</th>
+			<th>Data</th>
+			<th>tipo_gasto</th>
+			<th>descricao</th>
+			<th>valor</th>
+			<th>imagem</th>
+			<th>imagem1</th>
+		</tr>
+		{% for nota in notas %}
+			<tr>
+				<td><a href="{% url 'notas:nota_detalhes' nota.pk %}">{{ nota.numero }}</td>
+				<td>{{ nota.data }}</td>
+				<td>{{ nota.tipo_gasto }}</td>
+				<td>{{ nota.descricao }}</td>
+				<td>{{ nota.valor }}</td>
+				<td><a href="{{ media_url }}{{ nota.imagem }}">{{ nota.imagem }}</td>
+				<td><a href="{{ media_url }}{{ nota.imagem1 }}">{{ nota.imagem1 }}</td>
+			</tr>
+		{% endfor %}
+	</table>
+</div>
+<div class="col-md-12">
+        <p></p>
+        <form action="{% url 'notas:nota_list' %}" method="post" >
+                <input type="text" name="query" value="{{ query }}">
+                <input type="text" name="usuario">
+                <input type="submit" value="Salvar planilha para usuário">
+        </form>
+</div>
+
+{% endblock %}
+
